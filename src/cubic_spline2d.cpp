@@ -1,7 +1,7 @@
 #include "cubic_spline2d.hpp"
 #include <iostream>
 
-template <class T> CppCubicSpline2D::CppCubicSpline2D(const std::vector<T> &x, const std::vector<T> &y) : sx(calc_s(x, y), x), sy(calc_s(x, y), y)
+CppCubicSpline2D::CppCubicSpline2D(const std::vector<double> &x, const std::vector<double> &y) : sx(calc_s(x, y), x), sy(calc_s(x, y), y)
 {
     //error checking
     if(x.size() != y.size()){
@@ -10,41 +10,49 @@ template <class T> CppCubicSpline2D::CppCubicSpline2D(const std::vector<T> &x, c
     if(x.size() <= 2){
         std::cerr << "vector size must be more than 2" << std::endl;
     }
-
+    x_vec = x;
     distances = calc_s(x, y);
 }
 
 void CppCubicSpline2D::calc_spline_course(std::vector<std::vector<double>>& output_path, float ds)
 {
+    output_path.push_back({0, 0, 0, 0});
     output_path.clear();
 
-    double s;
+    double s = 0;
+    int length = x_vec.size();
+    std::cout << distances.back() << std::endl;
     while(true)
     {
-        s += ds;
-        distances.push_back(s);
-        std::vector<double> point(3);
+        std::vector<double> point(4);
         point[0] = sx.calc_pos(s);    //x
         point[1] = sy.calc_pos(s);    //y
         point[2] = calc_yaw(s);       //angle
         point[3] = calc_curvature(s); //curvature
         output_path.push_back(point);
 
-        if(s > distances.back()){
+        std::cout << point[0] << ", " << point[1] << ", " << point[2] << ", " << point[3] << ", " << s << std::endl;
+
+        s += ds;
+
+        if(s > length-1 + ds){
             break;
         }
     }
+
 }
 
 std::vector<double> CppCubicSpline2D::calc_s(const std::vector<double>& x, const std::vector<double>& y)
 {
     std::vector<double> distance_vec{0};
+    double s = 0;
 
     int length = x.size();
-    for(int i=1; i<length; ++i)
+    for(int i=0; i<length-1; ++i)
     {
         double ds = sqrt(pow(x[i+1]-x[i], 2) + pow(y[i+1]-y[i], 2));
-        distance_vec.push_back(ds);
+        s += ds;
+        distance_vec.push_back(s);
     }
 
     return distance_vec;

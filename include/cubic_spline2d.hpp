@@ -21,10 +21,11 @@
 class CppCubicSpline2D
 {
     public:
-        template <class T> CppCubicSpline2D(const std::vector<T> &x, const std::vector<T> &y);
+        CppCubicSpline2D(const std::vector<double> &x, const std::vector<double> &y);
         void calc_spline_course(std::vector<std::vector<double>>& output_path, float ds = 0.1);
     private:
         std::vector<double> distances;
+        std::vector<double> x_vec;
         CppCubicSpline1D sx;
         CppCubicSpline1D sy;
 
@@ -32,3 +33,4 @@ class CppCubicSpline2D
         double calc_curvature(double s);
         double calc_yaw(double s);
 };
+

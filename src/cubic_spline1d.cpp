@@ -20,13 +20,13 @@ template <class T> void CppCubicSpline1D::updateParameter(const T &y)
         a_.push_back(y[i]);
     }
 
-    for(int i = 0; i <= ndata; ++i){
+    for(int i = 0; i < ndata; ++i){
         if(i == 0){
             c_.push_back(0.0);
         }else if(i == ndata){
             c_.push_back(0.0);
         }else{
-            c_.push_back(3.0*(a_[i-1]-2.0*a_[i]+a_[i+1]));
+            c_.push_back(3.0*(a_[i-1] - 2.0*a_[i] + a_[i+1]));
         }
     }
 
@@ -40,8 +40,8 @@ template <class T> void CppCubicSpline1D::updateParameter(const T &y)
         }
     }
 
-    for(int i = (ndata-1); i > 0; --i){
-        c_[i] = c_[i]-c_[i+1]*w_[i];
+    for(int i = ndata-1; i > 0; --i){
+        c_[i] = c_[i] - c_[i+1]*w_[i];
     }
 
     for(int i = 0; i <= ndata; ++i){
@@ -49,8 +49,8 @@ template <class T> void CppCubicSpline1D::updateParameter(const T &y)
             d_.push_back(0.0);
             b_.push_back(0.0);
         }else{
-            d_.push_back((c_[i+1]-c_[i])/3.0);
-            b_.push_back(a_[i+1]-a_[i]-c_[i]-d_[i]);
+            d_.push_back((c_[i+1] - c_[i])/3.0);
+            b_.push_back(a_[i+1] - a_[i] - c_[i] - d_[i]);
         }
     }
 }
@@ -67,7 +67,8 @@ double CppCubicSpline1D::calc_pos(double x)
         return 0;
     }
 
-    int j = search_index(x);
+    //int j = search_index(x);
+    int j = int(floor(x));
     if(j < 0){
         j = 0;
     }else if(j >= a_.size()){
