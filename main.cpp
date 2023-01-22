@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 
     CppCubicSpline2D cppCubicSpline2D(x, y);
     std::vector<std::vector<double>> output_path;
-    cppCubicSpline2D.calc_spline_course(output_path);
+    cppCubicSpline2D.calc_spline_course(output_path, 0.1);
 
     std::vector<double> rx;
     std::vector<double> ry;
@@ -23,18 +23,11 @@ int main(int argc, char **argv)
         ry.push_back(output_path[i][1]);
     }
 
-    /*std::vector<double> x{0,1,2,3};
-    std::vector<double> y{2.7,6,5,6.5};
-    CppCubicSpline1D cppCubicSpline(sx, sy);
-    std::vector<double> rx;
-    std::vector<double> ry;
-    for(double i=0.0;i<=sy.size();i+=0.1){
-       rx.push_back(i);
-       ry.push_back(cppCubicSpline.calc_pos(i));
-    }*/
-
     plt::scatter(x, y, 10);
     plt::plot(rx, ry);
+    for(int i=0;i<rx.size();i++){
+        plt::arrow(rx[i], ry[i], 0.1*cos(output_path[i][2]), 0.1*sin(output_path[i][2]));
+    }
     plt::show();
 
     return 0;

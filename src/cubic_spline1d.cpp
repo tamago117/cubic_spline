@@ -67,7 +67,6 @@ double CppCubicSpline1D::calc_pos(double x)
         return 0;
     }
 
-    //int j = search_index(x);
     int j = int(floor(x));
     if(j < 0){
         j = 0;
@@ -76,7 +75,7 @@ double CppCubicSpline1D::calc_pos(double x)
     }
     double dt = x - j;
 
-    return a_[j]+(b_[j]+(c_[j]+d_[j]*dt)*dt)*dt;
+    return a_[j] + (b_[j] + (c_[j] + d_[j]*dt)*dt)*dt;
 }
 
 double CppCubicSpline1D::calc_first_derivative(double x)
@@ -91,7 +90,7 @@ double CppCubicSpline1D::calc_first_derivative(double x)
         return 0;
     }
 
-    int j = search_index(x);
+    int j = int(floor(x));
     if(j < 0){
         j = 0;
     }else if(j >= a_.size()){
@@ -99,7 +98,7 @@ double CppCubicSpline1D::calc_first_derivative(double x)
     }
     double dt = x - j;
 
-    return b_[j]+(2.0*c_[j]+3.0*d_[j]*dt)*dt;
+    return b_[j] + (2.0*c_[j] + 3.0*d_[j]*dt)*dt;
 }
 
 double CppCubicSpline1D::calc_second_derivative(double x)
@@ -114,7 +113,7 @@ double CppCubicSpline1D::calc_second_derivative(double x)
         return 0;
     }
 
-    int j = search_index(x);
+    int j = int(floor(x));
     if(j < 0){
         j = 0;
     }else if(j >= a_.size()){
@@ -122,14 +121,5 @@ double CppCubicSpline1D::calc_second_derivative(double x)
     }
     double dt = x - j;
 
-    return 2.0*c_[j]+6.0*d_[j]*dt;
-}
-
-int CppCubicSpline1D::search_index(double value)
-{
-    // upper_bound
-    std::vector<double>::iterator iter_upper = upper_bound(this->x_vec.begin(), this->x_vec.end(), value);
-    int idx = distance(this->x_vec.begin(), iter_upper);
-
-    return idx;
+    return 2.0*c_[j] + 6.0*d_[j]*dt;
 }

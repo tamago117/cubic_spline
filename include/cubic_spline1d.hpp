@@ -3,20 +3,6 @@
 #include <math.h>
 #include <iostream>
 
-/**
- *  @brief Cubic Spline header library
- *
- *  @usage
- *    vector<double> sy{2.7,6,5,6.5};
- *    CppCubicSpline cppCubicSpline(sy);
- *    vector<double> rx;
- *    vector<double> ry;
- *    for(double i=0.0;i<=sy.size();i+=0.1){
- *       rx.push_back(i);
- *       ry.push_back(cppCubicSpline.Calc(i));
- *    }
-**/
-
 class CppCubicSpline1D
 {
     public:
@@ -33,7 +19,5 @@ class CppCubicSpline1D
         std::vector<double> w_;
         int ndata;
         std::vector<double> x_vec;
-
-        int search_index(double value);
 
 };

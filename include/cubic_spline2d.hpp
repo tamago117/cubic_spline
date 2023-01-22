@@ -4,20 +4,6 @@
 #include <iostream>
 #include "cubic_spline1d.hpp"
 
-/**
- *  @brief Cubic Spline header library
- *
- *  @usage
- *    vector<double> sy{2.7,6,5,6.5};
- *    CppCubicSpline cppCubicSpline(sy);
- *    vector<double> rx;
- *    vector<double> ry;
- *    for(double i=0.0;i<=3.2;i+=0.1){
- *       rx.push_back(i);
- *       ry.push_back(cppCubicSpline.Calc(i));
- *    }
-**/
-
 class CppCubicSpline2D
 {
     public:
