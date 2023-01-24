@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     std::vector<double> y{1.0, 3.0, 7.0, 3.0, 6.0, 7.0, 13.0, 10.0};
 
     CppCubicSpline2D cppCubicSpline2D(x, y);
-    std::vector<std::vector<double>> output_path;
+    std::vector<std::vector<double>> output_path; //x ,y, yaw, curvature
     cppCubicSpline2D.calc_spline_course(output_path, 0.1);
 
     std::vector<double> rx;
