@@ -1,7 +1,8 @@
 # cubic_spline
 cubic spline c++ library
 
-![Screenshot from 2023-01-24 12-50-51](https://user-images.githubusercontent.com/38370926/214208810-94f61b68-28f3-4db5-ae57-59ef91593ea4.png)
+![Screenshot from 2023-01-27 16-12-19](https://user-images.githubusercontent.com/38370926/215029458-701461ed-86df-4319-90a8-a5be013f4799.png)
+
 
 ## install and build
 ```
