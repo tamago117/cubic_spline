@@ -2,6 +2,8 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
+#include "Eigen/Dense"
+
 
 class CppCubicSpline1D
 {
@@ -20,4 +22,7 @@ class CppCubicSpline1D
         int ndata;
         std::vector<double> x_vec;
 
+        Eigen::MatrixXd calcA(std::vector<double> h);
+        Eigen::VectorXd calc_b(std::vector<double> h);
+        int search_index(double value);
 };

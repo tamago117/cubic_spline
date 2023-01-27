@@ -10,7 +10,10 @@ CppCubicSpline2D::CppCubicSpline2D(const std::vector<double> &x, const std::vect
     if(x.size() <= 2){
         throw std::runtime_error("vector size must be more than 2!");
     }
+
     x_vec = x;
+    y_vec = y;
+    distances = calc_s(x, y);
 }
 
 void CppCubicSpline2D::calc_spline_course(std::vector<std::vector<double>>& output_path, float ds)
@@ -19,7 +22,7 @@ void CppCubicSpline2D::calc_spline_course(std::vector<std::vector<double>>& outp
     output_path.clear();
 
     double s = 0;
-    int length = x_vec.size();
+    int length = distances.back();
     while(true)
     {
         std::vector<double> point(4);
@@ -31,7 +34,14 @@ void CppCubicSpline2D::calc_spline_course(std::vector<std::vector<double>>& outp
 
         s += ds;
 
-        if(s > length-1 + ds){
+
+        if(s > length+ds){
+
+            double distance = sqrt(pow(sx.calc_pos(length) - x_vec.back(), 2) + pow(sy.calc_pos(length) - y_vec.back(), 2));
+
+            // last point fix
+            output_path[output_path.size()-1][0] = sx.calc_pos(length+distance);
+            output_path[output_path.size()-1][1] = sy.calc_pos(length+distance);
             output_path[output_path.size()-1][2] = output_path[output_path.size()-2][2];
             output_path[output_path.size()-1][3] = output_path[output_path.size()-2][3];
             break;

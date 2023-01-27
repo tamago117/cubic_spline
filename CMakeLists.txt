@@ -9,6 +9,7 @@ set(CMAKE_BUILD_TYPE Release)
 
 #find_package(Python3 COMPONENTS Interpreter Development)
 find_package(PythonLibs REQUIRED)
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
@@ -19,10 +20,13 @@ add_library(CUBIC_SPLINE SHARED
     src/cubic_spline1d.cpp
     src/cubic_spline2d.cpp
 )
+target_link_libraries(CUBIC_SPLINE
+    Eigen3::Eigen
+)
+
 add_executable(${PROJECT_NAME}
     main.cpp
 )
-
 target_link_libraries(${PROJECT_NAME}
     ${PYTHON_LIBRARIES}
     CUBIC_SPLINE

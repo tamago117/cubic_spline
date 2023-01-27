@@ -11,6 +11,8 @@ class CppCubicSpline2D
         void calc_spline_course(std::vector<std::vector<double>>& output_path, float ds = 0.1);
     private:
         std::vector<double> x_vec;
+        std::vector<double> y_vec;
+        std::vector<double> distances;
         CppCubicSpline1D sx;
         CppCubicSpline1D sy;
 
